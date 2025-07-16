@@ -2,7 +2,6 @@
   "name": "@./source",
   "version": "0.0.0",
   "license": "MIT",
-  "packageManager": "pnpm@8.15.0",
   "scripts": {
     "dev": "pnpm run dev:frontend",
     "dev:frontend": "nx serve frontend",
