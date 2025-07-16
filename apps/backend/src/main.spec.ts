@@ -7,7 +7,9 @@ import {
 } from './main';
 
 // Mock console.log to test console output
-const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {
+  // Intentionally empty for testing
+});
 
 describe('Backend Main', () => {
   beforeEach(() => {

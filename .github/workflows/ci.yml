@@ -1,0 +1,113 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [ 18.x, 20.x ]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Type check
+      run: npm run typecheck
+
+    - name: Lint
+      run: npm run lint
+
+    - name: Build all projects
+      run: npm run build
+
+    - name: Test with coverage
+      run: npm run test:coverage
+
+    - name: Upload coverage reports to Codecov (Optional)
+      uses: codecov/codecov-action@v4
+      if: env.CODECOV_TOKEN != ''
+      with:
+        directory: ./coverage
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: false
+        verbose: true
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+    - name: Archive coverage reports
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-reports-node-${{ matrix.node-version }}
+        path: coverage/
+        retention-days: 30
+
+    - name: Comment PR with coverage
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+
+          try {
+            let coverageComment = '## 📊 Test Coverage Report\n\n';
+            
+            // Check if coverage files exist
+            const coverageDir = './coverage';
+            if (fs.existsSync(coverageDir)) {
+              coverageComment += '✅ All tests passed with coverage reports generated!\n\n';
+              coverageComment += '**Coverage reports are available in the GitHub Actions artifacts.**\n\n';
+              coverageComment += 'Projects tested:\n';
+              coverageComment += '- ✅ Frontend (Vitest)\n';
+              coverageComment += '- ✅ Backend (Jest) \n';
+              coverageComment += '- ✅ Shared Utils (Jest)\n\n';
+              coverageComment += '_Download the coverage artifacts from this CI run to view detailed reports._';
+            } else {
+              coverageComment += '❌ No coverage reports found.\n';
+            }
+            
+            // Find existing comment
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            
+            const existingComment = comments.find(comment => 
+              comment.body.includes('📊 Test Coverage Report')
+            );
+            
+            if (existingComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existingComment.id,
+                body: coverageComment
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: coverageComment
+              });
+            }
+          } catch (error) {
+            console.log('Error posting coverage comment:', error);
+          } 
