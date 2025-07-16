@@ -88,25 +88,6 @@ pnpm run affected:lint    # Lint only affected projects
 - **Frontend**: 100% (37/37 statements, 2/2 branches, 1/1 functions, 37/37 lines)
 - **Backend**: 100% (23/23 statements, 0/0 branches, 6/6 functions, 23/23 lines)
 
-## 🔄 Continuous Integration
-
-This project includes a comprehensive GitHub Actions CI workflow that automatically:
-
-- ✅ **Type checks** all TypeScript code
-- ✅ **Lints** code for quality and consistency
-- ✅ **Builds** all projects to ensure compilation
-- ✅ **Tests** with coverage reporting
-- ✅ **Uploads** coverage artifacts
-- ✅ **Comments** on PRs with test results
-
-### Local CI Testing
-
-Test the CI pipeline locally before pushing:
-
-```bash
-./scripts/ci-test.sh
-```
-
 ## 🛠️ Technology Stack
 
 - **Nx**: Monorepo tooling and build system
