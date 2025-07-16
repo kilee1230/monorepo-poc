@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../../../../libs/shared-utils/src/lib/shared-utils.ts"],
+  "sourcesContent": ["export function sharedUtils(): string {\n  return 'shared-utils';\n}\n\nexport function formatMessage(name: string): string {\n  return `Hello ${name} from shared utils!`;\n}\n\nexport function getCurrentTimestamp(): string {\n  return new Date().toISOString();\n}\n\nexport interface User {\n  id: number;\n  name: string;\n  email: string;\n}\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAO,SAAS,cAAsB;AACpC,SAAO;AACT;AAEO,SAAS,cAAc,MAAsB;AAClD,SAAO,SAAS,IAAI;AACtB;AAEO,SAAS,sBAA8B;AAC5C,UAAO,oBAAI,KAAK,GAAE,YAAY;AAChC;",
+  "names": []
+}

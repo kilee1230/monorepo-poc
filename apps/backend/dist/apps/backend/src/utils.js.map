@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../src/utils.ts"],
+  "sourcesContent": ["import { formatMessage } from '@./shared-utils';\n\nexport function greetUser(name: string): string {\n  return formatMessage(name);\n}\n\nexport function addNumbers(a: number, b: number): number {\n  return a + b;\n}\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,0BAA8B;AAEvB,SAAS,UAAU,MAAsB;AAC9C,aAAO,mCAAc,IAAI;AAC3B;AAEO,SAAS,WAAW,GAAW,GAAmB;AACvD,SAAO,IAAI;AACb;",
+  "names": []
+}

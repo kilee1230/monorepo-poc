@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../src/main.ts"],
+  "sourcesContent": ["import { formatMessage, getCurrentTimestamp, User } from '@./shared-utils';\nimport { greetUser, addNumbers } from './utils';\n\nconsole.log('Hello World');\nconsole.log(formatMessage('Backend'));\nconsole.log('Server started at:', getCurrentTimestamp());\n\n// Simple API simulation\nconst users: User[] = [\n  { id: 1, name: 'John Doe', email: 'john@example.com' },\n  { id: 2, name: 'Jane Smith', email: 'jane@example.com' },\n];\n\nconsole.log('Sample users:', users);\nconsole.log('Greeting first user:', greetUser(users[0].name));\nconsole.log('Adding user IDs:', addNumbers(users[0].id, users[1].id));\nconsole.log('Backend is ready!');\n"],
+  "mappings": ";AAAA,0BAAyD;AACzD,mBAAsC;AAEtC,QAAQ,IAAI,aAAa;AACzB,QAAQ,QAAI,mCAAc,SAAS,CAAC;AACpC,QAAQ,IAAI,0BAAsB,yCAAoB,CAAC;AAGvD,MAAM,QAAgB;AAAA,EACpB,EAAE,IAAI,GAAG,MAAM,YAAY,OAAO,mBAAmB;AAAA,EACrD,EAAE,IAAI,GAAG,MAAM,cAAc,OAAO,mBAAmB;AACzD;AAEA,QAAQ,IAAI,iBAAiB,KAAK;AAClC,QAAQ,IAAI,4BAAwB,wBAAU,MAAM,CAAC,EAAE,IAAI,CAAC;AAC5D,QAAQ,IAAI,wBAAoB,yBAAW,MAAM,CAAC,EAAE,IAAI,MAAM,CAAC,EAAE,EAAE,CAAC;AACpE,QAAQ,IAAI,mBAAmB;",
+  "names": []
+}
